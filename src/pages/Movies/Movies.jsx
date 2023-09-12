@@ -13,7 +13,7 @@ import {
   MoviesListContainer
 } from './Movies.styled';
 
-// Create a MovieItem component
+
 
 
 const Movies = () => {

@@ -10,13 +10,13 @@ import {
 } from './Cast.styled';
 
 import { Loader } from './../Loader/Loader';
-import { SimpleSlider } from './../Slider/Slider'; // Import the Slider component
-import { Notification } from './../Notification/Notification'; // Import the Notification component
+import { SimpleSlider } from './../Slider/Slider'; 
+import { Notification } from './../Notification/Notification'; 
 
 const Cast = () => {
   const [actors, setActors] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null); // Додаємо стан для обробки помилок
+  const [error, setError] = useState(null); 
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const Cast = () => {
         setActors(cast);
       } catch (error) {
         console.log(error);
-        setError(error); // Встановлюємо стан помилки
+        setError(error); 
       } finally {
         setIsLoading(false);
       }
@@ -39,13 +39,13 @@ const Cast = () => {
     <Container>
       {isLoading && <Loader />}
       {error && (
-        // Відображаємо компонент Notification для помилки
+        
         <Notification
           id="error-notification"
           type="error"
           title="Error"
           content="Sorry, please try again"
-          removeNotification={() => setError(null)} // Функція для закриття нотифікації помилки
+          removeNotification={() => setError(null)} 
         />
       )}
       {actors ? (
@@ -62,7 +62,7 @@ const Cast = () => {
           ))} />
         </>
       ) : (
-        // Відображаємо компонент Notification для відсутності акторів
+        
         <Notification
           id="no-cast-notification"
           type="info"

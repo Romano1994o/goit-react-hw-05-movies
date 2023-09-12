@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-    NotificationsContainer,
-    NotificationItem,
-    NotificationInner,
-    IconWrapper,
+  NotificationsContainer,
+  NotificationItem,
+  NotificationInner,
+  GradientBorder, 
+  IconWrapper,
 } from './Notification.styled';
 
 import { MdClose } from 'react-icons/md';
-import { 
-    BsCheckLg,
-    BsXLg,
-    BsInfoLg,
-    BsExclamationLg } from 'react-icons/bs';
+import {
+  BsCheckLg,
+  BsXLg,
+  BsInfoLg,
+  BsExclamationLg,
+} from 'react-icons/bs';
 
 export const getNotificationIcon = (type) => {
   switch (type) {
@@ -35,7 +37,6 @@ export const Notification = ({
   type,
   index,
   total,
-  removeNotification,
 }) => {
   const Icon = getNotificationIcon(type);
   const inverseIndex = total - index - 1;
@@ -44,43 +45,55 @@ export const Notification = ({
   const bg = `hsl(0 0% ${100 - inverseIndex * 15}% / 40%)`;
   const y = inverseIndex * 100 * 0.9;
 
+  const [isVisible, setIsVisible] = useState(true);
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      removeNotification(id);
-    }, 2000); 
+      setIsVisible(false);
+    }, 50000);
 
-   
     return () => clearTimeout(timeoutId);
-  }, [id, removeNotification]);
+  }, []);
+
+  const handleRemoveNotification = () => {
+    setIsVisible(false);
+  };
 
   return (
     <NotificationsContainer>
+      {isVisible && (
         <NotificationItem
-      key={id}
-      className="notification" 
-      timeout={300}
-      style={{
-        '--bg': bg,
-        '--opacity': opacity,
-        '--scale': scale,
-        '--y': `${y}%`,
-      }}
-      onExited={() => removeNotification(id)}
-    >
-      <NotificationInner className="notification-inner">
-        <IconWrapper className={`icon ${type}`}>
-          <Icon />
-        </IconWrapper>
-        <div>
-          <h2>{title}</h2>
-          <p>{content}</p>
-        </div>
-        <button className="close" onClick={() => removeNotification(id)}>
-          <MdClose />
-        </button>
-      </NotificationInner>
-    </NotificationItem>
+          key={id}
+          className={`notification ${type === 'gradient' ? 'gradient-border' : ''}`} // Додайте умовний клас для GradientBorder
+          timeout={300}
+          style={{
+            '--bg': bg,
+            '--opacity': opacity,
+            '--scale': scale,
+            '--y': `${y}%`,
+          }}
+          onExited={handleRemoveNotification}
+        >
+           
+            <GradientBorder> 
+               <NotificationInner className="notification-inner gradient-border">
+              <IconWrapper className={`icon ${type}`}>
+                <Icon />
+              </IconWrapper>
+              <div>
+                <h2>{title}</h2>
+                <p>{content}</p>
+              </div>
+              <button className="close" onClick={handleRemoveNotification}>
+                <MdClose />
+              </button>
+            </NotificationInner>
+            </GradientBorder>
+         
+           
+         
+        </NotificationItem>
+      )}
     </NotificationsContainer>
-    
   );
 };
