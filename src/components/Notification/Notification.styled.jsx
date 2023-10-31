@@ -13,7 +13,7 @@ export const GradientBorder = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: var(--width);
+  padding:0 5px;
   height: var(--height);
   font-family: Lato, sans-serif;
   font-size: 2.5rem;
@@ -101,6 +101,42 @@ export const NotificationItem = styled(CSSTransition)`
 `;
 
 export const NotificationInner = styled.div`
+  background-color: var(--bg);
+  -webkit-backdrop-filter: blur(0.5rem);
+  backdrop-filter: blur(0.5rem);
+  padding: 0 1rem;
+  border: 3px;
+  opacity: var(--opacity);
+  transition: all var(--duration) ease-in-out;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: auto; 
+  
+
+  h2 {
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+
+  p {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .close {
+    background: none;
+    border: none;
+    position: absolute;
+    right: -0.2rem;
+    top: -10px;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+  }
+};
+
 
   background-color: var(--bg);
   -webkit-backdrop-filter: blur(0.5rem);
@@ -130,7 +166,7 @@ export const NotificationInner = styled.div`
     border: none;
     position: absolute;
     right: 0;
-    top: -10px;
+    top: 0;
     font-size: 0.8rem;
     padding: 0.5rem;
     cursor: pointer;
